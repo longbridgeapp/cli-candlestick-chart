@@ -95,6 +95,11 @@ impl Chart {
         self.renderer.render(self);
     }
 
+    /// Draws the chart by outputting multiples strings to a string buffer.
+    pub fn draw_to_buffer(&self) -> String {
+        self.renderer.render_to_buffer(self)
+    }
+
     /// Set the name of the chart in the info bar.
     pub fn set_name(&mut self, name: String) {
         self.info_bar.name = name;
