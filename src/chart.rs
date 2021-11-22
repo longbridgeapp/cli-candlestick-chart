@@ -59,14 +59,24 @@ pub struct Chart {
 
 impl Chart {
     pub fn new(candles: &[Candle]) -> Self {
+        Self::new_with_canvas_size(candles, None)
+    }
+
+    pub fn new_with_canvas_size(candles: &[Candle], canvas_size: Option<(u16, u16)>) -> Self {
         let renderer = ChartRenderer::new();
-        let chart_data = Rc::new(RefCell::new(ChartData::new(candles.to_vec())));
+        let chart_data = match canvas_size {
+            Some(canvas_size) => Rc::new(RefCell::new(ChartData::new_with_canvas_size(
+                candles.to_vec(),
+                canvas_size,
+            ))),
+            None => Rc::new(RefCell::new(ChartData::new(candles.to_vec()))),
+        };
         let y_axis = YAxis::new(chart_data.clone());
         let info_bar = InfoBar::new("APPLE".to_string(), chart_data.clone());
 
         let volume_pane = VolumePane::new(
             chart_data.clone(),
-            (chart_data.borrow().terminal_size.1 / 6) as i64,
+            (chart_data.borrow().canvas_size.1 / 6) as i64,
         );
 
         chart_data.borrow_mut().compute_height(&volume_pane);

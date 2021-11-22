@@ -8,19 +8,24 @@ use terminal_size::terminal_size;
 pub struct ChartData {
     pub main_candle_set: CandleSet,
     pub visible_candle_set: CandleSet,
-    pub terminal_size: (u16, u16),
+    pub canvas_size: (u16, u16),
     pub height: i64,
 }
 
 impl ChartData {
     pub fn new(candles: Vec<Candle>) -> ChartData {
-        let (w, h) = terminal_size().unwrap();
+        let (terminal_width, terminal_height) = terminal_size().unwrap();
+        ChartData::new_with_canvas_size(candles, (terminal_width.0, terminal_height.0))
+    }
+
+    pub fn new_with_canvas_size(candles: Vec<Candle>, canvas_size: (u16, u16)) -> ChartData {
+        let (w, h) = canvas_size;
 
         let mut chart_data = ChartData {
             main_candle_set: CandleSet::new(candles),
             visible_candle_set: CandleSet::new(Vec::new()),
-            terminal_size: (w.0, h.0),
-            height: h.0 as i64,
+            canvas_size: (w, h),
+            height: h as i64,
         };
 
         chart_data.compute_visible_candles();
@@ -34,14 +39,14 @@ impl ChartData {
             0
         };
 
-        self.height = self.terminal_size.1 as i64
+        self.height = self.canvas_size.1 as i64
             - ChartRenderer::MARGIN_TOP
             - InfoBar::HEIGHT
             - volume_pane_height;
     }
 
     pub fn compute_visible_candles(&mut self) {
-        let term_width = self.terminal_size.0 as usize as i64;
+        let term_width = self.canvas_size.0 as usize as i64;
         let nb_candles = self.main_candle_set.candles.len();
 
         let nb_visible_candles = term_width - YAxis::WIDTH;
