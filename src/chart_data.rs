@@ -32,7 +32,9 @@ impl ChartData {
         chart_data
     }
 
-    pub fn compute_height(&mut self, volume_pane: &VolumePane) {
+    pub fn compute_height(&mut self, info_bar: &InfoBar, volume_pane: &VolumePane) {
+        let info_bar_height = if info_bar.enabled { InfoBar::HEIGHT } else { 0 };
+
         let volume_pane_height = if volume_pane.enabled {
             volume_pane.height
         } else {
@@ -41,7 +43,7 @@ impl ChartData {
 
         self.height = self.canvas_size.1 as i64
             - ChartRenderer::MARGIN_TOP
-            - InfoBar::HEIGHT
+            - info_bar_height
             - volume_pane_height;
     }
 

@@ -94,7 +94,7 @@ impl ChartRenderer {
         let mut output_str = "".to_owned();
 
         let mut chart_data = chart.chart_data.borrow_mut();
-        chart_data.compute_height(&chart.volume_pane);
+        chart_data.compute_height(&chart.info_bar, &chart.volume_pane);
         drop(chart_data);
 
         let chart_data = chart.chart_data.borrow();
@@ -121,7 +121,9 @@ impl ChartRenderer {
             }
         }
 
-        output_str += &chart.info_bar.render();
+        if chart.info_bar.enabled {
+            output_str += &chart.info_bar.render();
+        }
 
         output_str
     }

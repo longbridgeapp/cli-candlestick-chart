@@ -79,7 +79,9 @@ impl Chart {
             (chart_data.borrow().canvas_size.1 / 6) as i64,
         );
 
-        chart_data.borrow_mut().compute_height(&volume_pane);
+        chart_data
+            .borrow_mut()
+            .compute_height(&info_bar, &volume_pane);
 
         Chart {
             renderer,
@@ -143,5 +145,10 @@ impl Chart {
     /// Default is 1/6 of the terminal height.
     pub fn set_volume_pane_height(&mut self, height: i64) {
         self.volume_pane.height = height;
+    }
+
+    /// Hide or show the info bar.
+    pub fn set_info_bar_enabled(&mut self, enabled: bool) {
+        self.info_bar.enabled = enabled;
     }
 }

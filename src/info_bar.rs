@@ -6,6 +6,7 @@ use crate::{chart_data::ChartData, y_axis::YAxis};
 
 pub struct InfoBar {
     pub name: String,
+    pub enabled: bool,
     chart_data: Rc<RefCell<ChartData>>,
 }
 
@@ -13,7 +14,11 @@ impl InfoBar {
     pub const HEIGHT: i64 = 2;
 
     pub fn new(name: String, chart_data: Rc<RefCell<ChartData>>) -> InfoBar {
-        InfoBar { name, chart_data }
+        InfoBar {
+            name,
+            enabled: true,
+            chart_data,
+        }
     }
 
     pub fn render(&self) -> String {
