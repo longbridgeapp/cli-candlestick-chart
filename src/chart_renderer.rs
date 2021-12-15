@@ -2,8 +2,8 @@ use crate::{chart::CandleType, y_axis::YAxis, Candle, Chart};
 use colored::*;
 
 pub struct ChartRenderer {
-    pub bearish_color: (u8, u8, u8),
-    pub bullish_color: (u8, u8, u8),
+    pub bearish_color: colored::Color,
+    pub bullish_color: colored::Color,
 }
 
 impl ChartRenderer {
@@ -24,18 +24,15 @@ impl ChartRenderer {
         control::set_virtual_terminal(true).unwrap();
 
         ChartRenderer {
-            bullish_color: (52, 208, 88),
-            bearish_color: (234, 74, 90),
+            bullish_color: Color::Green,
+            bearish_color: Color::Red,
         }
     }
 
     fn colorize(&self, candle_type: &CandleType, string: &str) -> String {
-        let (ar, ag, ab) = self.bearish_color;
-        let (br, bg, bb) = self.bullish_color;
-
         match candle_type {
-            CandleType::Bearish => format!("{}", string.truecolor(ar, ag, ab)),
-            CandleType::Bullish => format!("{}", string.truecolor(br, bg, bb)),
+            CandleType::Bearish => string.color(self.bearish_color).to_string(),
+            CandleType::Bullish => string.color(self.bullish_color).to_string(),
         }
     }
 

@@ -39,10 +39,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut chart = Chart::new(&candles);
 
     chart.set_name(String::from("CHZ/USDT"));
-    chart.set_bull_color(1, 205, 254);
-    chart.set_bear_color(255, 107, 153);
-    chart.set_vol_bull_color(1, 205, 254);
-    chart.set_vol_bear_color(255, 107, 153);
     chart.set_volume_pane_height(4);
     chart.set_volume_pane_enabled(true);
     // chart.set_volume_pane_unicode_fill(true);

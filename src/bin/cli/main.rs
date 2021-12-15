@@ -1,4 +1,5 @@
 use cli_candlestick_chart::{Candle, Chart};
+use colored::Color;
 use std::error::Error;
 use std::io::{self, BufRead};
 
@@ -55,12 +56,12 @@ fn main() {
 
     if let Some(bear_color) = options.bear_color {
         let (r, g, b) = hexa_to_rgb(bear_color);
-        chart.set_bear_color(r, g, b);
+        chart.set_bear_color(Color::TrueColor { r, g, b });
     }
 
     if let Some(bull_color) = options.bull_color {
         let (r, g, b) = hexa_to_rgb(bull_color);
-        chart.set_bull_color(r, g, b);
+        chart.set_bull_color(Color::TrueColor { r, g, b });
     }
 
     chart.draw();

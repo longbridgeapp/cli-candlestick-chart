@@ -1,3 +1,5 @@
+use colored::Color;
+
 use crate::{
     chart_data::ChartData, chart_renderer::ChartRenderer, info_bar::InfoBar,
     volume_pane::VolumePane, y_axis::YAxis,
@@ -109,26 +111,26 @@ impl Chart {
 
     /// Set the color of the bearish candle
     /// The default color is  (234, 74, 90).
-    pub fn set_bear_color(&mut self, r: u8, g: u8, b: u8) {
-        self.renderer.bearish_color = (r, g, b);
+    pub fn set_bear_color(&mut self, color: Color) {
+        self.renderer.bearish_color = color;
     }
 
     /// Set the color of the bullish candle
     /// The default color is  (52, 208, 88).
-    pub fn set_bull_color(&mut self, r: u8, g: u8, b: u8) {
-        self.renderer.bullish_color = (r, g, b);
+    pub fn set_bull_color(&mut self, color: Color) {
+        self.renderer.bullish_color = color;
     }
 
     /// Sets the color of the volume when the candle is bearish.
     /// The default color is  (234, 74, 90).
-    pub fn set_vol_bear_color(&mut self, r: u8, g: u8, b: u8) {
-        self.volume_pane.bearish_color = (r, g, b);
+    pub fn set_vol_bear_color(&mut self, color: Color) {
+        self.volume_pane.bearish_color = color;
     }
 
     /// Sets the color of the volume when the candle is bullish.
     /// The default color is  (52, 208, 88).
-    pub fn set_vol_bull_color(&mut self, r: u8, g: u8, b: u8) {
-        self.volume_pane.bullish_color = (r, g, b);
+    pub fn set_vol_bull_color(&mut self, color: Color) {
+        self.volume_pane.bullish_color = color;
     }
 
     /// Hide or show the volume pane.

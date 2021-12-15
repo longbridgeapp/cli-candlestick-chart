@@ -19,22 +19,24 @@
     <br/>
 </div>
 
-
 ![](https://i.imgur.com/J970jfL.png)
 
-* [Features](#features)
-* [API Usage](#api-usage)
-* [Binary Usage](#binary-usage)
-* [Examples](#examples)
+- [Features](#features)
+- [API Usage](#api-usage)
+- [Binary Usage](#binary-usage)
+- [Examples](#examples)
 
 # Features
+
 - Customizable
 - Auto-fit to terminal size
 - Shipped as library with simple API
 - Shipped as binary for standalone usage
 
 # API Usage
+
 Add this to your `Cargo.toml`
+
 ```toml
 [dependencies]
 cli-candlestick-chart = "0.3"
@@ -42,6 +44,7 @@ cli-candlestick-chart = "0.3"
 
 ```rust
 use cli_candlestick_chart::{Candle, Chart};
+use colored::Color;
 
 fn main() {
     // Add some candles
@@ -60,19 +63,20 @@ fn main() {
     chart.set_name(String::from("BTC/USDT"));
 
     // Set customs colors
-    chart.set_bear_color(1, 205, 254);
-    chart.set_bull_color(255, 107, 153);
-    chart.set_vol_bull_color(1, 205, 254);
-    chart.set_vol_bear_color(255, 107, 153);
+    chart.set_bear_color(Color::Red);
+    chart.set_bull_color(Color::Green);
+    chart.set_vol_bull_color(Color::Red);
+    chart.set_vol_bear_color(Color::Green);
 
     chart.set_volume_pane_height(6);
     chart.set_volume_pane_enabled(false);
-    
+
     chart.draw();
 }
 ```
 
 # Binary Usage
+
 Download the latest release for your platform [here](https://github.com/Julien-R44/cli-candlestick-chart/releases)
 
 ```
@@ -87,13 +91,15 @@ OPTIONS:
         --bear-color <BEAR_COLOR>    Sets the descending candles color in hexadecimal.
         --bull-color <BULL_COLOR>    Sets the ascending candles color in hexadecimal.
         --chart-name <CHART_NAME>    Sets the chart name.
-    -f, --file <FILE>                [MODE:*-file] File to read candles from.`   
-    -m, --mode <MODE>                Select the method for retrieving the candles. 
+    -f, --file <FILE>                [MODE:*-file] File to read candles from.`
+    -m, --mode <MODE>                Select the method for retrieving the candles.
                                      [possible values: stdin, csv-file, json-file]
 ```
+
 When requesting the CSV file mode, the library expects a CSV file with `open,high,low,close` headers fields.
 
-When requesting the JSON or stdin mode, the library expects a JSON with the following format : 
+When requesting the JSON or stdin mode, the library expects a JSON with the following format :
+
 ```
 [
   {
@@ -107,13 +113,17 @@ When requesting the JSON or stdin mode, the library expects a JSON with the foll
 ```
 
 # Examples
-## API 
+
+## API
+
 [Basic example with CSV parsing](https://github.com/Julien-R44/cli-candlestick-chart/blob/main/examples/basic-with-csv-parsing.rs) : Run with `cargo run --example basic-with-csv-parsing --features=serde,csv`
 
 [Fetch candles from binance](https://github.com/Julien-R44/cli-candlestick-chart/blob/main/examples/fetch-from-binance.rs) : Run with `cargo run --example fetch-from-binance --features=serde,reqwest`
 
-## Binary 
+## Binary
+
 - Read CSV from file :
+
 ```bash
 ./cli-candlestick-chart \
     --mode=csv-file \
@@ -124,6 +134,7 @@ When requesting the JSON or stdin mode, the library expects a JSON with the foll
 ```
 
 - Read from stdin :
+
 ```bash
 echo '[
   {

@@ -18,10 +18,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     // Set the chart title
     chart.set_name(String::from("BTC/USDT"));
 
-    // Set customs colors
-    chart.set_bear_color(1, 205, 254);
-    chart.set_bull_color(255, 107, 153);
-
     chart.draw();
 
     Ok(())

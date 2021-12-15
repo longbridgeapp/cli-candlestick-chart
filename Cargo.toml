@@ -1,29 +1,29 @@
 [package]
-name = "cli-candlestick-chart"
-version = "0.4.1"
-license = "MIT"
-description = "A library for displaying candlestick charts right into your terminal."
-readme = "README.md"
-homepage = "https://github.com/Julien-R44/cli-candlestick-chart"
-repository = "https://github.com/Julien-R44/cli-candlestick-chart"
-keywords = ["cli", "terminal", "trading", "candlestick", "chart"]
-categories = ["command-line-interface", "visualization"]
 authors = ["Julien-R44 <julien@ripouteau.com>"]
+categories = ["command-line-interface", "visualization"]
+description = "A library for displaying candlestick charts right into your terminal."
 edition = "2021"
+homepage = "https://github.com/Julien-R44/cli-candlestick-chart"
+keywords = ["cli", "terminal", "trading", "candlestick", "chart"]
+license = "MIT"
+name = "cli-candlestick-chart"
+readme = "README.md"
+repository = "https://github.com/Julien-R44/cli-candlestick-chart"
+version = "0.4.1"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-terminal_size = "0.1.17"
+clap = {version = "2.33.3", optional = true}
 colored = "2"
-serde = { version = "1", features = ["derive"], optional = true }
-clap = { version = "2.33.3", optional = true }
-serde_json = { version = "1.0.1", optional = true }
-csv = { version = "1.1", optional = true }
-reqwest = { version = "0.11", features = ["blocking", "json"], optional = true }
+csv = {version = "1.1", optional = true}
+reqwest = {version = "0.11", features = ["blocking", "json"], optional = true}
+serde = {version = "1", features = ["derive"], optional = true}
+serde_json = {version = "1.0.1", optional = true}
+terminal_size = "0.1.17"
 
 [dev-dependencies]
-reqwest = { version = "0.11", features = ["blocking", "json"] }
+reqwest = {version = "0.11", features = ["blocking", "json"]}
 
 [features]
 bin-app = ["serde", "serde_json", "csv", "clap"]
